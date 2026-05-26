@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Time &amp; Analysis Resource Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TEA BRAND DESIGN TOKENS
+     Primary:   TEA Blue #0d6cb9  |  TEA Orange #f16038
+     Secondary: Backpack Blue #052984  |  Sky Blue #56b7e6
+                Charcoal #363534  |  Cool Grey #5a6267
+                Light Blue #e0ecf6  |  Medium Yellow #ffdd62
+     Accent:    Light Grey #e7e3db
+     Fonts:     Open Sans (primary)  |  Poppins (bold headings)
+  ============================================================ */
+
+  :root {
+    --tea-blue: #0d6cb9;
+    --tea-orange: #f16038;
+    --backpack-blue: #052984;
+    --sky-blue: #56b7e6;
+    --charcoal: #363534;
+    --cool-grey: #5a6267;
+    --light-blue: #e0ecf6;
+    --medium-yellow: #ffdd62;
+    --light-grey: #e7e3db;
+    --white: #ffffff;
+    --blue-tint-1: #3d98c7;
+    --blue-tint-2: #0a5694;
+    --orange-web: #d93c10;
+    --grass-green: #40834e;
+    --light-green: #d7f7e0;
+
+    --font-body: 'Open Sans', Arial, sans-serif;
+    --font-heading: 'Poppins', 'Open Sans', Arial, sans-serif;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --shadow-sm: 0 1px 4px rgba(5,41,132,0.10);
+    --shadow-md: 0 3px 12px rgba(5,41,132,0.13);
+    --shadow-lg: 0 6px 24px rgba(5,41,132,0.16);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--charcoal);
+    background: #f4f6fb;
+    min-height: 100vh;
+  }
+
+  /* ---- HEADER ---- */
+  .site-header {
+    background: var(--white);
+    border-bottom: 3px solid var(--tea-blue);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    gap: 16px;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .tea-logo-svg { height: 36px; width: auto; }
+  .header-title-text {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--backpack-blue);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .header-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--light-grey);
+    flex-shrink: 0;
+  }
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cool-grey);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: color .18s, background .18s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { color: var(--tea-blue); background: var(--light-blue); }
+  .nav-btn.active { color: var(--tea-blue); background: var(--light-blue); }
+  .nav-levers-dropdown { position: relative; }
+  .nav-levers-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    min-width: 240px;
+    z-index: 200;
+    padding: 4px 0;
+  }
+  .nav-levers-menu.open { display: block; }
+  .nav-levers-menu button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--charcoal);
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .nav-levers-menu button:hover { background: var(--light-blue); color: var(--tea-blue); }
+
+  /* ---- PROGRESS BAR ---- */
+  .progress-bar-wrap {
+    background: var(--light-blue);
+    border-bottom: 1px solid #c8dff2;
+  }
+  .progress-bar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 44px;
+  }
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cool-grey);
+    padding: 0 12px;
+    height: 44px;
+    position: relative;
+    cursor: pointer;
+    transition: color .15s;
+    white-space: nowrap;
+  }
+  .progress-step:first-child { padding-left: 0; }
+  .progress-step .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--light-grey);
+    color: var(--cool-grey);
+    flex-shrink: 0;
+    transition: background .2s, color .2s;
+  }
+  .progress-step.completed .step-num { background: var(--tea-blue); color: var(--white); }
+  .progress-step.active { color: var(--backpack-blue); }
+  .progress-step.active .step-num { background: var(--tea-orange); color: var(--white); }
+  .progress-step:hover:not(.active) { color: var(--tea-blue); }
+  .progress-arrow {
+    color: var(--light-grey);
+    font-size: 14px;
+    font-weight: 300;
+    flex-shrink: 0;
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  .main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+  }
+
+  /* ---- SCREEN visibility ---- */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ---- PAGE HEADING ---- */
+  .page-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .page-heading-icon {
+    width: 48px; height: 48px;
+    background: var(--light-blue);
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--tea-blue);
+  }
+  .page-heading-icon svg { width: 26px; height: 26px; }
+  .page-heading h1 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--backpack-blue);
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .page-heading p {
+    font-size: 14px;
+    color: var(--cool-grey);
+    line-height: 1.5;
+  }
+
+  /* ---- HOME SCREEN ---- */
+  .home-hero {
+    background: linear-gradient(135deg, var(--backpack-blue) 0%, var(--tea-blue) 100%);
+    border-radius: var(--radius-lg);
+    padding: 48px 48px 44px;
+    color: var(--white);
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .home-hero::after {
+    content: '';
+    position: absolute;
+    right: 60px; bottom: -60px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(241,96,56,0.15);
+  }
+  .home-hero h1 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .home-hero h1 span { color: var(--medium-yellow); }
+  .home-hero .hero-sub {
+    font-size: 16px;
+    opacity: 0.88;
+    margin-bottom: 28px;
+    line-height: 1.6;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--tea-orange);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .18s, transform .12s, box-shadow .18s;
+    box-shadow: 0 2px 8px rgba(241,96,56,0.35);
+    position: relative;
+    z-index: 1;
+  }
+  .btn-primary:hover {
+    background: var(--orange-web);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(241,96,56,0.45);
+  }
+  .btn-primary svg { width: 16px; height: 16px; }
+
+  .home-what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .home-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--light-grey);
+  }
+  .home-card h2 {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--backpack-blue);
+    margin-bottom: 12px;
+  }
+  .home-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .home-card ul li {
+    font-size: 14px;
+    color: var(--charcoal);
+    padding: 5px 0;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .home-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 12px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--tea-orange);
+  }
+  .home-card.muted ul li::before {
+    background: var(--cool-grey);
+  }
+
+  .home-steps {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--light-grey);
+  }
+  .home-steps h2 {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--backpack-blue);
+    margin-bottom: 20px;
+  }
+  .steps-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .steps-flow::before {
+    content: '';
+    position: absolute;
+    top: 22px; left: 48px; right: 48px;
+    height: 2px;
+    background: var(--light-blue);
+    z-index: 0;
+  }
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-circle {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--tea-blue);
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(13,108,185,0.3);
+  }
+  .step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.4;
+  }
+
+  /* ---- STEP 1 REFLECTION ---- */
+  .reflection-intro {
+    background: var(--light-blue);
+    border-left: 4px solid var(--tea-blue);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    color: var(--backpack-blue);
+    line-height: 1.6;
+  }
+  .reflection-intro strong { font-weight: 700; }
+
+  .reflection-section {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--light-grey);
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .reflection-section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #f8fafd;
+    border-bottom: 1px solid var(--light-grey);
+  }
+  .reflection-section-icon {
+    width: 36px; height: 36px;
+    background: var(--light-blue);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tea-blue);
+    flex-shrink: 0;
+  }
+  .reflection-section-icon svg { width: 18px; height: 18px; }
+  .reflection-section-label {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--backpack-blue);
+  }
+  .reflection-section-sublabel {
+    font-size: 12px;
+    color: var(--cool-grey);
+    margin-top: 1px;
+  }
+  .reflection-areas {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .reflection-area-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .reflection-area-text {
+    font-size: 13.5px;
+    color: var(--charcoal);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .rating-group {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .rating-btn {
+    padding: 5px 11px;
+    border-radius: 20px;
+    border: 1.5px solid var(--light-grey);
+    background: var(--white);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cool-grey);
+    cursor: pointer;
+    transition: all .16s;
+    white-space: nowrap;
+  }
+  .rating-btn:hover { border-color: var(--tea-blue); color: var(--tea-blue); }
+  .rating-btn.strength { border-color: var(--grass-green); background: var(--light-green); color: var(--grass-green); }
+  .rating-btn.inconsistent { border-color: var(--sky-blue); background: #e6f6fd; color: #1a7ca8; }
+  .rating-btn.struggle { border-color: var(--tea-orange); background: #fef0eb; color: var(--orange-web); }
+
+  .step1-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .rating-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--cool-grey);
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ---- STEP 2 LEVER SELECT ---- */
+  .step2-context {
+    margin-bottom: 24px;
+  }
+  .step2-context-banner {
+    background: var(--light-blue);
+    border: 1px solid #c8dff2;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    font-size: 14px;
+    color: var(--backpack-blue);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .step2-context-banner svg { width: 18px; height: 18px; color: var(--tea-blue); flex-shrink: 0; margin-top: 1px; }
+
+  .lever-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .lever-card {
+    background: var(--white);
+    border: 2px solid var(--light-grey);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color .18s, box-shadow .18s, transform .12s;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .lever-card:hover {
+    border-color: var(--tea-blue);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .lever-card.priority {
+    border-color: var(--tea-orange);
+    background: #fff8f6;
+    order: -1;
+  }
+  .lever-card.priority-2 {
+    border-color: var(--sky-blue);
+    background: #f4fbff;
+  }
+  .lever-priority-badge {
+    position: absolute;
+    top: -10px; right: 14px;
+    background: var(--tea-orange);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .lever-priority-badge.secondary {
+    background: var(--sky-blue);
+    color: var(--backpack-blue);
+  }
+  .lever-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--light-blue);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tea-blue);
+    flex-shrink: 0;
+  }
+  .lever-icon svg { width: 22px; height: 22px; }
+  .lever-card.priority .lever-icon { background: #fde8df; color: var(--tea-orange); }
+  .lever-card.priority-2 .lever-icon { background: #daf2fd; color: #1a7ca8; }
+  .lever-number {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cool-grey);
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .lever-name {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--backpack-blue);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .lever-desc {
+    font-size: 12.5px;
+    color: var(--cool-grey);
+    line-height: 1.45;
+  }
+  .lever-arrow {
+    margin-left: auto;
+    color: var(--light-grey);
+    font-size: 18px;
+    align-self: center;
+    flex-shrink: 0;
+    transition: color .15s, transform .15s;
+  }
+  .lever-card:hover .lever-arrow { color: var(--tea-blue); transform: translateX(3px); }
+
+  /* ---- STEP 3 NEEDS LIST ---- */
+  .step3-lever-header {
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .needs-list { display: flex; flex-direction: column; gap: 10px; }
+  .need-card {
+    background: var(--white);
+    border: 1.5px solid var(--light-grey);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: border-color .16s, box-shadow .16s, background .16s;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+  .need-card:hover {
+    border-color: var(--tea-blue);
+    background: #fafcff;
+    box-shadow: var(--shadow-md);
+  }
+  .need-card-text {
+    font-size: 14px;
+    color: var(--charcoal);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .need-card-arrow {
+    color: var(--light-grey);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: color .15s, transform .15s;
+  }
+  .need-card:hover .need-card-arrow { color: var(--tea-blue); transform: translateX(3px); }
+
+  /* ---- STEP 4 RESULTS ---- */
+  .result-selected-need {
+    background: var(--light-blue);
+    border: 1px solid #c8dff2;
+    border-radius: var(--radius-md);
+    padding: 14px 20px;
+    margin-bottom: 20px;
+  }
+  .result-selected-need .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--tea-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 4px;
+  }
+  .result-selected-need .need-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--backpack-blue);
+    line-height: 1.45;
+  }
+
+  .result-strategy {
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .result-strategy .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--tea-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 7px;
+  }
+  .result-strategy .strategy-text {
+    font-size: 14.5px;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  .initiatives-table-wrap {
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
+  }
+  .initiatives-table-header {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2.5fr;
+    background: var(--backpack-blue);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 10px 20px;
+    gap: 16px;
+  }
+  .initiative-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2.5fr;
+    gap: 16px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--light-grey);
+    align-items: flex-start;
+    transition: background .14s;
+  }
+  .initiative-row:hover { background: #f8fafd; }
+  .initiative-link {
+    color: var(--tea-blue);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    line-height: 1.45;
+  }
+  .initiative-link:hover { color: var(--backpack-blue); text-decoration: underline; }
+  .initiative-link svg { width: 12px; height: 12px; flex-shrink: 0; margin-top: 3px; color: var(--sky-blue); }
+  .initiative-desc { font-size: 13px; color: var(--charcoal); line-height: 1.5; }
+  .initiative-capacity { font-size: 13px; color: var(--cool-grey); line-height: 1.5; }
+
+  .result-note {
+    background: #fffbf0;
+    border: 1px solid #f0dba0;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #7a5a10;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+  .result-note svg { width: 18px; height: 18px; flex-shrink: 0; color: #d4a020; margin-top: 1px; }
+
+  /* ---- BACK / NAV FOOTER ---- */
+  .screen-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1.5px solid var(--light-grey);
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--cool-grey);
+    padding: 9px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color .16s, color .16s, background .16s;
+  }
+  .btn-back:hover {
+    border-color: var(--tea-blue);
+    color: var(--tea-blue);
+    background: var(--light-blue);
+  }
+  .btn-back svg { width: 14px; height: 14px; }
+
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--tea-blue);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background .16s, transform .12s;
+    box-shadow: 0 2px 8px rgba(13,108,185,0.28);
+  }
+  .btn-next:hover { background: var(--backpack-blue); transform: translateY(-1px); }
+  .btn-next svg { width: 15px; height: 15px; }
+
+  /* ---- RESTART ---- */
+  .btn-restart {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1.5px solid var(--light-grey);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cool-grey);
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all .16s;
+  }
+  .btn-restart:hover { border-color: var(--tea-orange); color: var(--tea-orange); background: #fff4f0; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 700px) {
+    .home-what-grid { grid-template-columns: 1fr; }
+    .steps-flow { grid-template-columns: 1fr 1fr; }
+    .lever-grid { grid-template-columns: 1fr; }
+    .initiatives-table-header { display: none; }
+    .initiative-row { grid-template-columns: 1fr; gap: 8px; padding: 14px 16px; }
+    .initiative-row::before { content: ''; }
+    .header-title-text { display: none; }
+    .progress-step span.step-text { display: none; }
+    .rating-group { flex-direction: column; }
+    .reflection-area-row { flex-direction: column; gap: 8px; }
+    .home-hero { padding: 28px 24px; }
+    .home-hero h1 { font-size: 22px; }
+  }
+  @media (max-width: 480px) {
+    .steps-flow { grid-template-columns: 1fr; }
+    .steps-flow::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="site-header">
+  <div class="header-inner">
+    <button class="header-brand" onclick="goHome()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:12px;text-decoration:none;">
+      <!-- TEA Logo SVG (inline representation using brand colors) -->
+      <svg class="tea-logo-svg" viewBox="0 0 120 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Texas Education Agency">
+        <!-- Mortarboard cap shape -->
+        <g transform="translate(0,2)">
+          <polygon points="20,6 32,12 20,18 8,12" fill="#0d6cb9"/>
+          <polyline points="8,12 8,21" stroke="#0d6cb9" stroke-width="2" fill="none"/>
+          <rect x="14" y="18" width="12" height="8" rx="1" fill="#f16038"/>
+          <circle cx="8" cy="22" r="1.5" fill="#0d6cb9"/>
+        </g>
+        <!-- TEA text -->
+        <text x="40" y="20" font-family="Arial Black, Arial" font-weight="900" font-size="17" fill="#0d6cb9" letter-spacing="-0.5">TEA</text>
+        <text x="40" y="31" font-family="Arial, sans-serif" font-weight="400" font-size="7.5" fill="#363534" letter-spacing="0.3">Texas Education Agency</text>
+      </svg>
+      <div class="header-divider"></div>
+      <div class="header-title-text">Teacher Time &amp; Analysis<br>Resource Library</div>
+    </button>
+    <nav class="header-nav">
+      <button class="nav-btn" onclick="goHome()">Home</button>
+      <button class="nav-btn" onclick="showScreen('step1')">Step 1</button>
+      <button class="nav-btn" onclick="showScreen('step2')">Step 2</button>
+      <button class="nav-btn" onclick="showScreen('step3')">Step 3</button>
+      <button class="nav-btn" onclick="showScreen('step4')">Step 4</button>
+      <div class="nav-levers-dropdown">
+        <button class="nav-btn" onclick="toggleLeversMenu()" id="levers-nav-btn">Levers &#9660;</button>
+        <div class="nav-levers-menu" id="levers-nav-menu">
+          <button onclick="jumpToLever(0)">Lever 1: Planning &amp; Performance Management</button>
+          <button onclick="jumpToLever(1)">Lever 2: Talent</button>
+          <button onclick="jumpToLever(2)">Lever 3: Integrated Student Support Systems</button>
+          <button onclick="jumpToLever(3)">Lever 4: Academic Experience</button>
+          <button onclick="jumpToLever(4)">Lever 5: Instructional Leadership &amp; Capacity Building</button>
+          <button onclick="jumpToLever(5)">Lever 6: Finance &amp; Operations</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ====== PROGRESS BAR ====== -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-inner">
+    <div class="progress-step" id="prog-home" onclick="goHome()">
+      <span class="step-num">&#8962;</span>
+      <span class="step-text">Home</span>
+    </div>
+    <span class="progress-arrow">&#8250;</span>
+    <div class="progress-step" id="prog-step1" onclick="showScreen('step1')">
+      <span class="step-num">1</span>
+      <span class="step-text">Reflect</span>
+    </div>
+    <span class="progress-arrow">&#8250;</span>
+    <div class="progress-step" id="prog-step2" onclick="showScreen('step2')">
+      <span class="step-num">2</span>
+      <span class="step-text">Select a lever</span>
+    </div>
+    <span class="progress-arrow">&#8250;</span>
+    <div class="progress-step" id="prog-step3" onclick="showScreen('step3')">
+      <span class="step-num">3</span>
+      <span class="step-text">Identify a need</span>
+    </div>
+    <span class="progress-arrow">&#8250;</span>
+    <div class="progress-step" id="prog-step4" onclick="showScreen('step4')">
+      <span class="step-num">4</span>
+      <span class="step-text">Strategies &amp; initiatives</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MAIN ====== -->
+<main class="main-content">
+
+  <!-- HOME -->
+  <div id="screen-home" class="screen active">
+    <div class="home-hero">
+      <h1>Teacher Time &amp; Analysis<br><span>Resource Library</span></h1>
+      <p class="hero-sub">A guided process to help district leaders reflect on their system, identify priorities, and connect to research-aligned strategies and TEA initiatives within the Effective District Framework.</p>
+      <button class="btn-primary" onclick="showScreen('step1')">
+        Start the process
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="home-what-grid">
+      <div class="home-card">
+        <h2>What this is</h2>
+        <p style="font-size:13.5px;color:var(--charcoal);margin-bottom:10px;line-height:1.55;">A step-by-step process to help your district:</p>
+        <ul>
+          <li>Reflect on current systems</li>
+          <li>Identify a priority need within a specific lever</li>
+          <li>Explore aligned strategies and initiatives</li>
+          <li>Understand the staffing and capacity required for success</li>
+        </ul>
+      </div>
+      <div class="home-card muted">
+        <h2>What this isn't</h2>
+        <ul style="--dot-color: var(--cool-grey);">
+          <li>This tool is not a list of programs</li>
+          <li>It will not analyze your data for you</li>
+          <li>It will not create an implementation plan</li>
+        </ul>
+      </div>
+    </div>
+    <div class="home-steps">
+      <h2>The four-step process</h2>
+      <div class="steps-flow">
+        <div class="step-item">
+          <div class="step-circle">1</div>
+          <div class="step-label">Reflect on your system</div>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">2</div>
+          <div class="step-label">Select a lever</div>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">3</div>
+          <div class="step-label">Identify a need</div>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">4</div>
+          <div class="step-label">Explore strategies, initiatives, and required capacity</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="screen-step1" class="screen">
+    <div class="page-heading">
+      <div class="page-heading-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </div>
+      <div>
+        <h1>Step 1: Reflect on your current system</h1>
+        <p>Review the areas below with your leadership team. Rate each area to identify where your district is strong, inconsistent, or struggling most. Your ratings will help surface the most relevant lever in Step 2.</p>
+      </div>
+    </div>
+    <div class="reflection-intro">
+      <strong>How to approach this step.</strong> Scan each area and discuss with your team. Where are we strong? Where are we inconsistent? Where are we struggling most? Do not overanalyze. Mark your honest, collective read of each area.
+    </div>
+    <div id="reflection-sections-container"></div>
+    <div class="step1-footer">
+      <div class="rating-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--grass-green)"></div> Strength</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--sky-blue)"></div> Inconsistent</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--tea-orange)"></div> Struggle</div>
+      </div>
+      <button class="btn-next" onclick="showScreen('step2')">
+        Step 2: Select a lever
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="screen-step2" class="screen">
+    <div class="page-heading">
+      <div class="page-heading-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <div>
+        <h1>Step 2: Select the system lever</h1>
+        <p>Based on your reflections, which system area is most relevant for your district right now? Levers connected to areas you rated as a struggle are highlighted. Click on the lever you'd like to explore to move to step 3.</p>
+      </div>
+    </div>
+    <div class="step2-context" id="step2-context-area"></div>
+    <div class="lever-grid" id="lever-grid-container"></div>
+    <div class="screen-footer">
+      <button class="btn-back" onclick="showScreen('step1')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to step 1
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="screen-step3" class="screen">
+    <div class="page-heading">
+      <div class="page-heading-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></svg>
+      </div>
+      <div>
+        <h1 id="step3-heading">Step 3: Identify a specific need</h1>
+        <p>Select the identified need that most closely matches your district's current challenge.</p>
+      </div>
+    </div>
+    <div class="step3-lever-header" id="step3-lever-header"></div>
+    <div class="needs-list" id="needs-list-container"></div>
+    <div class="screen-footer">
+      <button class="btn-back" onclick="showScreen('step2')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to step 2
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div id="screen-step4" class="screen">
+    <div class="page-heading">
+      <div class="page-heading-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+      </div>
+      <div>
+        <h1>Step 4: Strategies, initiatives and required capacity</h1>
+        <p>Review the recommended strategy and aligned initiatives below. Use this information to plan your next steps.</p>
+      </div>
+    </div>
+    <div id="step4-content"></div>
+    <div class="screen-footer">
+      <button class="btn-back" onclick="showScreen('step3')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to step 3
+      </button>
+      <button class="btn-restart" onclick="restartTool()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 12a9 9 0 109-9 9 9 0 00-9 9"/><path d="M3 3v6h6"/></svg>
+        Start over
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  ratings: {},       // areaKey -> 'strength'|'inconsistent'|'struggle'
+  selectedLever: null,
+  selectedNeed: null,
+};
+
+// ============================================================
+// DATA: REFLECTION AREAS (Step 1)
+// Each area maps to one or more lever indices (0-5)
+// ============================================================
+const REFLECTION_SECTIONS = [
+  {
+    label: 'Lever 1: Planning and performance management',
+    sublabel: 'Vision, strategy, planning, and data systems',
+    icon: 'clipboard',
+    leverIndex: 0,
+    areas: [
+      { key: 'l1_vision', text: 'Our district vision is clearly defined, measurable, and consistently articulated by leaders and staff across campuses.' },
+      { key: 'l1_strategic', text: 'Our strategic plan prioritizes the highest-impact actions and is aligned across academic, talent, and operational systems.' },
+      { key: 'l1_alignment', text: 'Departments (HR, curriculum, finance, operations) work toward shared goals with clear accountability structures.' },
+      { key: 'l1_implementation', text: 'District initiatives have clearly defined roles, timelines, and success metrics and are implemented with fidelity.' },
+      { key: 'l1_data', text: 'Leaders regularly use data dashboards and KPIs to monitor progress and adjust strategy proactively.' },
+    ]
+  },
+  {
+    label: 'Lever 2: Talent',
+    sublabel: 'Staff recruitment, development, and retention',
+    icon: 'users',
+    leverIndex: 1,
+    areas: [
+      { key: 'l2_roles', text: 'Roles across the organization reflect the envisioned student experience with clear performance expectations.' },
+      { key: 'l2_staffing', text: 'Our most effective educators are placed in the highest-need campuses and classrooms through intentional staffing strategies.' },
+      { key: 'l2_recruitment', text: 'We recruit proactively using data to forecast needs, build pipelines, and hire early.' },
+      { key: 'l2_pipeline', text: 'We have strong teacher and leader pipelines, including Grow Your Own and residency pathways.' },
+      { key: 'l2_retention', text: 'Our appraisal and compensation systems meaningfully differentiate performance and support retention of effective educators.' },
+    ]
+  },
+  {
+    label: 'Lever 3: Integrated student support systems',
+    sublabel: 'Student supports and school culture',
+    icon: 'heart',
+    leverIndex: 2,
+    areas: [
+      { key: 'l3_mtss', text: 'We have consistent student support team structures using data to identify needs and monitor progress through case management.' },
+      { key: 'l3_screening', text: 'Universal screening for academic, mental health, and behavioral needs is implemented with fidelity and acted on by teams.' },
+      { key: 'l3_family', text: 'Family and caregiver engagement is structured, consistent, and embedded in student support processes.' },
+      { key: 'l3_culture', text: 'Campus culture expectations are clear, aligned districtwide, and implemented consistently by all staff.' },
+      { key: 'l3_safety', text: 'Our district has effective systems for behavioral support, mental health referral, and safe, inclusive school environments.' },
+    ]
+  },
+  {
+    label: 'Lever 4: Academic experience',
+    sublabel: 'Academic strategy and student achievement',
+    icon: 'graduation',
+    leverIndex: 3,
+    areas: [
+      { key: 'l4_tiered', text: 'We have a coherent, research-based multi-tiered academic framework with consistent Tier 1 instruction across campuses.' },
+      { key: 'l4_hqim', text: 'All teachers have access to high-quality instructional materials aligned to state standards, and implementation is monitored.' },
+      { key: 'l4_assessment', text: 'Our assessment system is aligned to instructional materials and used consistently to monitor student progress.' },
+      { key: 'l4_rigorous', text: 'All campuses provide equitable access to rigorous coursework including AP, dual credit, and CTE pathways.' },
+      { key: 'l4_career', text: 'Students have structured pathways to early college credit attainment and high-growth career opportunities.' },
+    ]
+  },
+  {
+    label: 'Lever 5: Instructional leadership and capacity building',
+    sublabel: 'Instructional leadership and teacher capacity',
+    icon: 'chart',
+    leverIndex: 4,
+    areas: [
+      { key: 'l5_vision', text: 'There is a clear, communicated vision for job-embedded coaching and instructional leadership development districtwide.' },
+      { key: 'l5_coaching', text: 'Coaching responsibilities are distributed across campus and district leaders with sufficient frequency and quality.' },
+      { key: 'l5_pd', text: 'Professional development is coherent, yearlong, role-aligned, and directly connected to the envisioned student experience.' },
+      { key: 'l5_observation', text: 'Observation and feedback cycles are frequent, high-quality, and tied to specific instructional practices and action steps.' },
+      { key: 'l5_data', text: 'Teachers and leaders regularly use curriculum-embedded and interim assessment data to adjust instruction.' },
+    ]
+  },
+  {
+    label: 'Lever 6: Finance and operations',
+    sublabel: 'Finance, operations, time, and systems',
+    icon: 'dollar',
+    leverIndex: 5,
+    areas: [
+      { key: 'l6_time', text: 'Master schedules prioritize core instructional time, minimize pull-outs, and protect collaboration and intervention blocks.' },
+      { key: 'l6_extended', text: 'Students who need extended learning time have access to well-structured opportunities within and beyond the school day.' },
+      { key: 'l6_technology', text: 'Technology systems are consolidated, efficient, and reduce administrative burden rather than adding to it.' },
+      { key: 'l6_finance', text: 'District leaders have the tools and knowledge to allocate funds strategically and maximize available state resources.' },
+    ]
+  }
+];
+
+// ============================================================
+// DATA: LEVERS (Steps 2, 3, 4)
+// All needs, strategies, initiatives, and capacity from spreadsheet
+// ============================================================
+const LEVERS = [
+  // ==========================================================
+  // LEVER 1: Planning & Performance Management
+  // ==========================================================
+  {
+    id: 1,
+    name: 'Planning and performance management',
+    subtitle: 'Vision, strategy, planning, and data systems',
+    icon: 'clipboard',
+    reflectionKeys: ['l1_vision','l1_strategic','l1_alignment','l1_implementation','l1_data'],
+    needs: [
+      {
+        need: 'Lack of clear, measurable district vision aligned to student outcomes',
+        strategy: 'Establish and communicate a district vision for student success informed by community needs using TEA\'s EDF framework as a planning anchor.',
+        initiatives: [
+          { name: 'Effective District Framework (EDF)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides research-based guidance on establishing a clear and compelling vision for student success, aligned mission, and guiding principles as the foundation for all district systems.' }
+        ],
+        capacity: 'Requires a designated central owner for vision development and communication. Superintendent and Board alignment is essential.'
+      },
+      {
+        need: 'Inconsistent operating norms across campuses. Leaders and staff are unable to articulate shared commitments.',
+        strategy: 'Develop and embed guiding principles and operating commitments into hiring, onboarding, coaching, and evaluation structures districtwide.',
+        initiatives: [
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides leadership development and planning support to help districts align guiding principles and culture-building practices with strategic priorities and continuous improvement systems.' }
+        ],
+        capacity: 'Requires HR integration of guiding principles into onboarding and professional learning. Campus principal accountability is essential.'
+      },
+      {
+        need: 'Weak or misaligned strategic planning. Initiatives are not tied to student outcome goals.',
+        strategy: 'Develop a coherent multi-year strategic plan with a Theory of Action, aligned priorities, and a central performance management function.',
+        initiatives: [
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Supports districts in developing strategic roadmaps aligned to student outcomes, establishing performance management functions, and building central management and systems roadmaps.' }
+        ],
+        capacity: 'Requires at least one central owner for planning and performance management. Cross-departmental leadership engagement is essential.'
+      },
+      {
+        need: 'Lack of system alignment across departments (HR, curriculum, finance, operations)',
+        strategy: 'Use the EDF systems roadmap framework to align all central management systems to the district\'s Theory of Action.',
+        initiatives: [
+          { name: 'Center for Effective Districts (CED)', org: 'ESC 20 / TEA', url: 'https://www.esc20.net/apps/pages/ced', desc: 'Helps districts align systems across departments to strategic priorities. Provides tools for cross-department collaboration, accountability structures, and resource alignment.' }
+        ],
+        capacity: 'Requires cross-departmental leadership team with shared accountability. Regular joint planning structures are necessary.'
+      },
+      {
+        need: 'Poor implementation of district initiatives. Roles, timelines, and success metrics are unclear.',
+        strategy: 'Develop clear implementation plans with defined roles, responsibilities, timelines, and milestone tracking for all prioritized district initiatives.',
+        initiatives: [
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Emphasizes structured implementation planning, project management routines, and accountability systems to ensure district initiatives are executed with fidelity and on schedule.' }
+        ],
+        capacity: 'Requires a project management lead or coordinator. Standardized tools and protocols across departments are essential.'
+      },
+      {
+        need: 'Lack of structured project management tools and routines across departments',
+        strategy: 'Implement districtwide project management tools, meeting structures, and check-in routines to ensure consistent tracking and accountability.',
+        initiatives: [
+          { name: 'Center for Effective Districts (CED)', org: 'ESC 20 / TEA', url: 'https://www.esc20.net/apps/pages/ced', desc: 'Promotes use of planning tools, milestone tracking, and leadership coaching to ensure implementation fidelity across district systems and departments.' }
+        ],
+        capacity: 'Requires training for department leads in project management practices. Designated accountability roles are necessary.'
+      },
+      {
+        need: 'Chronic underperformance on campuses without a whole-school improvement strategy',
+        strategy: 'Apply for School Action Fund grants to support whole-school improvement strategies with embedded project management and accountability structures.',
+        initiatives: [
+          { name: 'School Action Fund (SAF)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Awards grants supporting whole-school strategies that increase access to high-quality schools, meet community needs, and address chronic underperformance.' }
+        ],
+        capacity: 'Requires campus and district implementation team. Grant management and reporting capacity are essential.'
+      },
+      {
+        need: 'Limited data-driven decision-making. Data is collected but not used effectively.',
+        strategy: 'Establish clear KPIs for all district initiatives, build data systems to track progress, and implement regular data review cycles tied to the strategic plan.',
+        initiatives: [
+          { name: 'Effective District Framework (EDF)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides guidance on establishing initiative goals, measurement plans, data setup, and data collection protocols to support continuous performance monitoring.' },
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Builds leadership capacity to use data to inform decisions and improve student outcomes, including establishing progress review routines at district and campus levels.' }
+        ],
+        capacity: 'Requires a data analyst or performance management coordinator. Investment in data systems and staff training is necessary.'
+      },
+      {
+        need: 'Lack of consistent progress monitoring routines. Strategies are not adjusted based on data.',
+        strategy: 'Establish routinized progress review structures at district and campus levels, using data dashboards and milestone tracking to enable timely strategy adjustments.',
+        initiatives: [
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides structured routines for progress monitoring tied to the strategic plan, including dashboard use and milestone reviews that trigger timely strategy adjustments.' }
+        ],
+        capacity: 'Requires leadership time allocation for regular data review. Principal accountability structures and data dashboard access are essential.'
+      },
+      {
+        need: 'Weak culture of continuous improvement across the organization',
+        strategy: 'Invest in leadership development and coaching structures that build capacity at district, campus, and teacher leader levels to sustain continuous improvement.',
+        initiatives: [
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides leadership coaching and capacity building to sustain improvement systems and develop change management skills across district and campus levels.' }
+        ],
+        capacity: 'Requires dedicated coaching roles. Investment in leadership development programs and succession planning structures are necessary.'
+      },
+      {
+        need: 'Limited leadership capacity for change management and sustaining improvement systems',
+        strategy: 'Invest in leadership development and coaching structures that build capacity at district, campus, and teacher leader levels to sustain continuous improvement.',
+        initiatives: [
+          { name: 'Texas Strategic Leadership (TSL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides leadership coaching and capacity building to sustain improvement systems and develop change management skills at all levels of district leadership.' }
+        ],
+        capacity: 'Requires dedicated coaching roles and succession planning. Investment in leadership development programs is essential.'
+      }
+    ]
+  },
+
+  // ==========================================================
+  // LEVER 2: Talent
+  // ==========================================================
+  {
+    id: 2,
+    name: 'Talent',
+    subtitle: 'Staff recruitment, development, and retention',
+    icon: 'users',
+    reflectionKeys: ['l2_roles','l2_staffing','l2_recruitment','l2_pipeline','l2_retention'],
+    needs: [
+      {
+        need: 'Undefined or misaligned roles that do not reflect the envisioned student experience',
+        strategy: 'Design sustainable roles across the organization with clear responsibilities and performance expectations aligned to the envisioned student experience and strategic plan.',
+        initiatives: [
+          { name: 'Effective District Framework (EDF) EA 2.1 Guidance', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides guidance on designing sustainable roles with clear responsibilities and performance expectations aligned to the district\'s envisioned student experience and strategic priorities.' }
+        ],
+        capacity: 'Requires HR and department leader collaboration to audit and redesign role descriptions. Board approval may be needed for structural changes.'
+      },
+      {
+        need: 'Most effective educators not placed in highest-need campuses and classrooms',
+        strategy: 'Implement incentive-based staffing strategies, including TIA, to attract and retain effective educators in campuses with higher student support needs.',
+        initiatives: [
+          { name: 'Teacher Incentive Allotment (TIA)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/educator-initiatives-and-performance/educator-initiatives/teacher-incentive-allotment', desc: 'Creates pathways for highly effective teachers to earn larger allotment-supported salaries, with priority for high-need campuses. HB 2 expanded TIA supports and enhanced strategic compensation options.' }
+        ],
+        capacity: 'Requires a designation process for TIA tiers. HR and finance collaboration on compensation modeling and campus leader buy-in are essential.'
+      },
+      {
+        need: 'Reactive, insufficient teacher recruitment leading to vacancies and late hiring',
+        strategy: 'Build proactive recruitment systems using short- and long-term data to forecast staffing needs, set targets, and implement early hiring practices.',
+        initiatives: [
+          { name: 'Texas Strategic Staffing Grant for Paid, Sustainable Teacher Residency Program', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2025-2027-texas-strategic-staffing-grant-for-paid-sustainable-teacher-residency-program', desc: 'Supports district and EPP partnerships in designing and implementing paid, year-long, sustainable teacher residencies that directly strengthen teacher pipelines and improve early hiring timelines.' }
+        ],
+        capacity: 'Requires dedicated HR recruitment staff. Partnership management with EPPs and data systems for staffing projections are necessary.'
+      },
+      {
+        need: 'Missed opportunities to develop local teacher pipelines from within the community',
+        strategy: 'Implement Grow Your Own strategies through CTE pathways and paraprofessional-to-teacher pipelines to build a locally sourced, diverse teacher workforce.',
+        initiatives: [
+          { name: 'Grow Your Own (GYO)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/educator-initiatives-and-performance/educator-initiatives/grow-your-own', desc: 'Builds strong, stable, and diverse teacher pipelines from within communities. Funds pathways for paraprofessionals and high school students into the teaching profession.' }
+        ],
+        capacity: 'Requires CTE pathway coordination. HR partnership with local colleges and mentoring structures for aspiring teachers are essential.'
+      },
+      {
+        need: 'Lack of funding to support paraprofessionals and students pursuing teacher certification',
+        strategy: 'Use PREP Grow Your Own allotment funds to support employees seeking certification and to build high school pathways into teaching.',
+        initiatives: [
+          { name: 'PREP Grow Your Own Program Allotment', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Provides funding for school systems to help employees become certified teachers and to support high school pathways into teaching, strengthening local teacher pipelines.' }
+        ],
+        capacity: 'Requires HR coordination with certification programs. Campus mentoring and scheduling support for aspiring teachers are necessary.'
+      },
+      {
+        need: 'Underprepared teacher candidates entering the classroom. Weak EPP partnerships.',
+        strategy: 'Build or expand teacher residency partnerships with EPPs, community colleges, and universities to produce well-prepared candidates aligned to district needs.',
+        initiatives: [
+          { name: 'PREP Residency Preservice Program', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Builds teacher pipeline through residency-based preparation models, producing stronger, better-prepared candidates for district hire.' }
+        ],
+        capacity: 'Requires mentor teacher identification. Partnership management with preparation programs and HR alignment on hiring criteria are essential.'
+      },
+      {
+        need: 'Insufficient number of well-prepared, diverse school leaders in the pipeline',
+        strategy: 'Invest in principal residency programs to build a sustainable pipeline of high-quality, diverse instructional leaders ready to lead campuses.',
+        initiatives: [
+          { name: 'Principal Residency Grant, Cycle 7', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2024-2025-principal-residency-grant-cycle-7', desc: 'Designed to increase the number of well-prepared, diverse instructional leaders by building sustainable leadership pipelines and growing high-quality principal residency programs.' }
+        ],
+        capacity: 'Requires mentor principal capacity. Partnership with leadership preparation programs and HR succession planning infrastructure are necessary.'
+      },
+      {
+        need: 'Appraisal systems that do not meaningfully differentiate performance or inform professional growth',
+        strategy: 'Establish annual staff appraisals using multiple measures including competencies, student growth, and observation data to identify performance levels and inform differentiated support.',
+        initiatives: [
+          { name: 'Teacher Incentive Allotment (TIA)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/educator-initiatives-and-performance/educator-initiatives/teacher-incentive-allotment', desc: 'TIA designation tiers (Recognized, Acknowledged, Distinguished) provide a state-aligned multi-measure framework for identifying educator effectiveness and informing performance-based compensation and retention strategies.' }
+        ],
+        capacity: 'Requires trained evaluators and data systems to track multiple measures. HR alignment between appraisal and compensation is essential.'
+      },
+      {
+        need: 'Flat salary structures that do not recognize or reward educator effectiveness',
+        strategy: 'Collaborate across HR, finance, and educator development to build a sustainable strategic compensation system aligned to TIA tiers and HB 2 Enhanced TIA.',
+        initiatives: [
+          { name: 'HB 2: Teacher Incentive Allotment Update (Enhanced TIA)', org: 'TEA', url: 'https://tea.texas.gov/about-tea/news-and-multimedia/correspondence/taa-letters/hb-2-implementation-teacher-incentive-allotment-update', desc: 'HB 2 expanded teacher-generated allotments and created Enhanced TIA for districts implementing strategic compensation systems tied to effectiveness.' }
+        ],
+        capacity: 'Requires finance and HR collaboration. Multi-year budget modeling and Board of Trustees approval for compensation policy changes are necessary.'
+      },
+      {
+        need: 'Limited career growth opportunities leading to early-career teacher attrition',
+        strategy: 'Establish structured mentoring programs for novice teachers and provide career pathway opportunities that reward effectiveness and encourage retention.',
+        initiatives: [
+          { name: 'PREP Mentorship Program', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Supports and retains early-career teachers through structured mentoring, improving teacher retention rates and classroom effectiveness in the critical first years of teaching.' }
+        ],
+        capacity: 'Requires trained mentor teachers with reduced loads. HR structures for mentor identification and matching and campus leader support are necessary.'
+      },
+      {
+        need: 'Insufficient investment in instructional leadership development leading to principal turnover',
+        strategy: 'Implement Texas Instructional Leadership (TIL) to develop school leaders\' capacity to grow teachers and improve the student experience as a retention and sustainability strategy.',
+        initiatives: [
+          { name: 'Texas Instructional Leadership (TIL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/superintendents/texas-instructional-leadership-presentation-august-2024.pdf', desc: 'Invests in instructional leaders to grow teachers and improve the student experience. Strong fit for leader retention, development, and sustainability as a long-term district investment.' }
+        ],
+        capacity: 'Requires campus leader participation. Coaching structures and protected time for leadership development activities are essential.'
+      }
+    ]
+  },
+
+  // ==========================================================
+  // LEVER 3: Integrated Student Support Systems
+  // ==========================================================
+  {
+    id: 3,
+    name: 'Integrated student support systems',
+    subtitle: 'Student supports and school culture',
+    icon: 'heart',
+    reflectionKeys: ['l3_mtss','l3_screening','l3_family','l3_culture','l3_safety'],
+    needs: [
+      {
+        need: 'Absence of consistent student support team structures for identifying and responding to individual student needs',
+        strategy: 'Establish district expectations for student support teams using data to identify strengths and needs, implement individualized strategies, and monitor progress via case management.',
+        initiatives: [
+          { name: 'Multi-tiered System of Supports (MTSS)', org: 'TEA', url: 'https://tea.texas.gov/academics/special-student-populations/special-education/programs-and-services/multi-tiered-system-of-supports-mtss', desc: 'Provides integrated guidance for aligning evidence-based prevention and intervention practices through structured student support teams addressing academic, behavior, and mental health needs.' }
+        ],
+        capacity: 'Requires multi-disciplinary student support team leads at each campus. Counselors, diagnosticians, and interventionists aligned to MTSS roles are necessary.'
+      },
+      {
+        need: 'Staff lacking training and resources to implement the MTSS framework effectively',
+        strategy: 'Provide resources and training to enable all staff to implement the comprehensive MTSS framework, addressing academic support, behavioral health, and mental health services.',
+        initiatives: [
+          { name: 'Texas Center for Student Supports (TCSS)', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2023-2025-texas-center-for-student-supports', desc: 'Helps districts address academic and nonacademic student needs through safe, inclusive, and supportive learning environments. Provides training, tools, and technical assistance tied to MTSS implementation.' }
+        ],
+        capacity: 'Requires campus-level MTSS coordinators. Investment in professional learning time and ongoing coaching support are necessary.'
+      },
+      {
+        need: 'Lack of universal screening processes for academic, mental health, and behavioral needs',
+        strategy: 'Provide procedures and training for implementing universal screening for academic, mental health, and behavioral needs. Create time for multidisciplinary teams to analyze and act on data.',
+        initiatives: [
+          { name: 'Multi-tiered System of Supports (MTSS)', org: 'TEA', url: 'https://tea.texas.gov/academics/special-student-populations/special-education/programs-and-services/multi-tiered-system-of-supports-mtss', desc: 'MTSS framework includes universal screening guidance, data analysis protocols, and training resources for multidisciplinary teams to implement and act on screening data for all student populations.' }
+        ],
+        capacity: 'Requires trained screening administrators and multidisciplinary team time. Data systems to track and analyze screening results are essential.'
+      },
+      {
+        need: 'Insufficient family engagement structures limiting student support effectiveness',
+        strategy: 'Set expectations and provide staff training and time to meaningfully engage parents and caregivers as partners in supporting student development and MTSS processes.',
+        initiatives: [
+          { name: 'Stronger Connections Grant', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2024-2025-stronger-connections-grant', desc: 'Supports systemic change in how districts engage families and address barriers to safe, inclusive, and supportive school environments. Includes case management tools and family partnership support components.' }
+        ],
+        capacity: 'Requires family engagement coordinator roles. Bilingual communication capacity and community liaison staffing are necessary.'
+      },
+      {
+        need: 'Inconsistent campus culture that undermines student readiness to learn',
+        strategy: 'Set clear expectations for campus-level culture aligned to district guiding principles and train all staff on culture-setting practices and inclusive school environments.',
+        initiatives: [
+          { name: 'Safe and Supportive Schools', org: 'TEA', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/safe-and-supportive-schools', desc: 'Provides statewide guidance for behavior, discipline, bullying prevention, and supportive environments. Includes implementation resources for school culture improvement and alignment to district-level expectations.' }
+        ],
+        capacity: 'Requires campus-level culture leads. Training for all staff on culture expectations and principal accountability are essential.'
+      },
+      {
+        need: 'High rates of disciplinary exclusions, behavioral incidents, and unsafe school environments',
+        strategy: 'Implement a school-wide system of prevention, incentives, and consequences aligned to PBIS and MTSS frameworks. Reduce reliance on exclusionary discipline practices.',
+        initiatives: [
+          { name: 'Discipline and Behavior Supports Grant', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2025-2026-discipline-and-behavior-supports-grant', desc: 'Supports creation and implementation of technical assistance, professional development, tools, and resources related to behavioral interventions and alternatives to exclusionary discipline.' }
+        ],
+        capacity: 'Requires campus behavior support specialists. Training for all staff in prevention and de-escalation strategies and discipline trend data tracking are necessary.'
+      },
+      {
+        need: 'Bullying, violence, and acts of hate creating unsafe school environments',
+        strategy: 'Apply for Stronger Connections funding to build systemic district-wide approaches to bullying prevention, violence reduction, and safe, inclusive school environments.',
+        initiatives: [
+          { name: 'Stronger Connections Grant', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2024-2025-stronger-connections-grant', desc: 'Supports systemic change in how districts address bullying, violence, and acts of hate. Includes mental health personnel funding and training supports for safer, more inclusive campuses.' }
+        ],
+        capacity: 'Requires campus safety and mental health personnel. Threat assessment team training and community partnership coordination are essential.'
+      },
+      {
+        need: 'Fragmented or non-existent referral pathways for student behavioral, mental health, and wellness needs',
+        strategy: 'Establish community partnerships, resource maps, and referral pathways for coordinated student and staff behavioral, mental health, and wellness support.',
+        initiatives: [
+          { name: 'Texas Center for Student Supports (TCSS)', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2023-2025-texas-center-for-student-supports', desc: 'Provides technical assistance for building coordinated student support systems, including resource mapping, referral pathway development, and training for staff to respond to student and community challenges.' }
+        ],
+        capacity: 'Requires campus counselor and social worker coordination. Community partnership management and referral tracking systems are necessary.'
+      },
+      {
+        need: 'Inadequate supports for students with unique psychological, emotional, and behavioral needs',
+        strategy: 'Provide effective special populations supports through structured programs and services addressing students\' unique psychological, emotional, and behavioral needs.',
+        initiatives: [
+          { name: 'Stronger Connections Grant', org: 'TEA', url: 'https://tea.texas.gov/finance-and-grants/grants/grants-administration/grants-awarded/2024-2025-stronger-connections-grant', desc: 'Awardees receive trainings, support services, case management tools, and funding that can support mental health personnel and related student services for special populations with complex needs.' }
+        ],
+        capacity: 'Requires mental health counselors, diagnosticians, and behavior specialists. Inter-departmental collaboration between special and general education staff is essential.'
+      },
+      {
+        need: 'Limited early childhood programming and family support leading to kindergarten unreadiness',
+        strategy: 'Implement research-based early childhood programming with family support structures and universal screening instruments for early identification of academic and developmental concerns.',
+        initiatives: [
+          { name: 'Multi-tiered System of Supports (MTSS) Early Childhood Alignment', org: 'TEA', url: 'https://tea.texas.gov/academics/special-student-populations/special-education/programs-and-services/multi-tiered-system-of-supports-mtss', desc: 'MTSS framework includes early childhood alignment guidance for universal screening, family engagement, and early identification processes aligned to Kindergarten Readiness standards.' }
+        ],
+        capacity: 'Requires Pre-K certified teachers and early childhood specialists. Family support and home visitation coordinators are necessary.'
+      },
+      {
+        need: 'Challenges adapting to the new intensity of services funding model for special education',
+        strategy: 'Shift focus from where services are delivered to emphasize the intensity of specially designed instruction and related supports required for each student.',
+        initiatives: [
+          { name: 'Intensity of Services Special Education Funding Model Resources', org: 'TEA', url: 'https://spedsupport.tea.texas.gov/resource-library/intensity-services-special-education-funding-model-resources', desc: 'State guidance, ARD and IEP supports, and resources to help districts understand and implement the intensity of services special education funding model.' }
+        ],
+        capacity: 'Staffing implications are driven by IEP-documented intensity tiers and service groups across five domains.'
+      }
+    ]
+  },
+
+  // ==========================================================
+  // LEVER 4: Academic Experience
+  // ==========================================================
+  {
+    id: 4,
+    name: 'Academic experience',
+    subtitle: 'Academic strategy and student achievement',
+    icon: 'graduation',
+    reflectionKeys: ['l4_tiered','l4_hqim','l4_assessment','l4_rigorous','l4_career'],
+    needs: [
+      {
+        need: 'Absence of a coherent, research-based multi-tiered academic framework. Inconsistent Tier 1 instruction across campuses.',
+        strategy: 'Define and train staff on a coherent approach to Tier 1, Tier 2, and Tier 3 academic supports rooted in research-based instructional strategies aligned to content areas.',
+        initiatives: [
+          { name: 'School Improvement Curriculum and Instruction Support Grant (SI CISG)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Targets improved curriculum and instruction on low-performing campuses, including support for establishing research-based Tier 1 instructional frameworks aligned to HQIM.' }
+        ],
+        capacity: 'Requires curriculum coordinators and instructional coaches. Campus-level MTSS leads and teacher training in content-aligned instructional strategies are necessary.'
+      },
+      {
+        need: 'Lack of a coherent, research-based approach to tutoring and intervention that aligns with Tier 1',
+        strategy: 'Design and implement a coherent, research-based approach to extended time, tutoring, and interventions that aligns with the district\'s overall multi-tiered academic system.',
+        initiatives: [
+          { name: 'Navigating Excellence through Targeted Supports (NEXT)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Improves low-performing schools through instructional supports and targeted interventions, including structured tutoring programs embedded in the school day aligned to the district\'s MTSS framework.' }
+        ],
+        capacity: 'Requires trained interventionists and tutors. Master schedule carving protected intervention time and progress monitoring systems are essential.'
+      },
+      {
+        need: 'Assessment system misaligned to instructional materials. Limited use of curriculum-embedded assessments.',
+        strategy: 'Create an assessment framework aligned to HQIM that ensures use of curriculum-embedded assessments to enable strong implementation and student progress monitoring.',
+        initiatives: [
+          { name: 'Blended Learning Grant (BLG)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Redesigns instruction using blended learning models aligned to HQIM, including embedding aligned assessments that provide real-time data on student learning to support instructional decision-making.' }
+        ],
+        capacity: 'Requires curriculum specialists to align assessment framework. Teacher training in data use and curriculum-embedded assessment practices are necessary.'
+      },
+      {
+        need: 'Teachers lacking access to high-quality instructional materials (HQIM) aligned to state standards',
+        strategy: 'Establish adoption processes to evaluate and select HQIM. Communicate clear expectations for use at district, campus, and classroom levels. Ensure equitable access for all teachers.',
+        initiatives: [
+          { name: 'School Improvement Curriculum and Instruction Support Grant (SI CISG)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Supports selection, adoption, and implementation of high-quality instructional materials on low-performing campuses, including expectation-setting and monitoring for fidelity to district curriculum approach.' }
+        ],
+        capacity: 'Requires curriculum adoption committee. Instructional coaches to support HQIM implementation and campus monitoring systems are essential.'
+      },
+      {
+        need: 'Inconsistent implementation of district-adopted instructional materials across campuses',
+        strategy: 'Establish routine monitoring systems to ensure campuses implement district-adopted instructional materials with fidelity, including scope and sequence adherence and use of aligned assessments.',
+        initiatives: [
+          { name: 'Leadership and Instructional Foundations for Texas (LIFT)', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'Combines Strong Foundations, TIL, and Texas Lesson Study to support HQIM implementation monitoring, internalization planning, and instructional leadership development for curriculum delivery fidelity.' }
+        ],
+        capacity: 'Requires instructional coaches and curriculum coordinators. Campus walk-through and monitoring protocols and leadership calibration structures are essential.'
+      },
+      {
+        need: 'Students lacking access to rigorous and challenging courses (AP, dual credit, advanced coursework)',
+        strategy: 'Ensure and monitor that all campuses provide student access to rigorous and challenging CCMP-aligned courses, including AP, dual credit, and CTE pathways.',
+        initiatives: [
+          { name: 'Advanced Placement Computer Science Principles (AP CSP)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Expands access to rigorous advanced coursework in computer science, increasing participation rates in AP courses and supporting college readiness for underrepresented student populations.' }
+        ],
+        capacity: 'Requires AP-certified teachers. Counselor advising capacity and campus schedule design to accommodate advanced course offerings are necessary.'
+      },
+      {
+        need: 'Students lacking access to college credit attainment pathways during high school',
+        strategy: 'Establish or expand Early College High School programs to provide students with structured pathways to earn college credits and graduate prepared for post-secondary success.',
+        initiatives: [
+          { name: 'Early College High School (ECHS)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Increases college readiness and credit attainment by providing structured pathways for students to earn up to 60 college credit hours while enrolled in high school.' }
+        ],
+        capacity: 'Requires higher education partnership coordination. Counselors trained in dual credit advising and campus scheduling for blended HS and college course delivery are necessary.'
+      },
+      {
+        need: 'Students lacking pathways to high-growth, high-demand careers and industry credentials',
+        strategy: 'Identify and expand CTE pathways tied to high-growth occupations. Develop work-based learning partnerships and industry credential opportunities for students.',
+        initiatives: [
+          { name: 'Pathways in Technology Early College High School (PTECH)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Improves career readiness and workforce alignment by connecting students to technology career pathways, industry mentors, and work-based learning opportunities alongside academic coursework.' }
+        ],
+        capacity: 'Requires CTE director and pathway coordinators. Industry partnership management and work-based learning site supervisors are necessary.'
+      }
+    ]
+  },
+
+  // ==========================================================
+  // LEVER 5: Instructional Leadership & Capacity Building
+  // ==========================================================
+  {
+    id: 5,
+    name: 'Instructional leadership and capacity building',
+    subtitle: 'Instructional leadership and teacher capacity',
+    icon: 'chart',
+    reflectionKeys: ['l5_vision','l5_coaching','l5_pd','l5_observation','l5_data'],
+    needs: [
+      {
+        need: 'Lack of clear vision and expectations for job-embedded coaching and instructional leadership development',
+        strategy: 'A clear, communicated vision for ongoing, job-embedded coaching and development inclusive of instructional leadership roles is a prerequisite for building instructional capacity at scale.',
+        initiatives: [
+          { name: 'Texas Instructional Leadership (TIL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/superintendents/texas-instructional-leadership-presentation-august-2024.pdf', desc: 'Provides a clear framework for instructional leadership development, including expectations for job-embedded coaching, distributed leadership, and ongoing development of all instructional roles.' }
+        ],
+        capacity: 'Requires designated instructional coaches at campus and district levels. Leadership time allocation for coaching activities is essential.'
+      },
+      {
+        need: 'Overreliance on a single leader for instructional coaching. Insufficient distributed leadership structures.',
+        strategy: 'Distributed leadership models that share coaching responsibilities across campus and district leaders increase the quality and frequency of teacher support.',
+        initiatives: [
+          { name: 'Leadership and Instructional Foundations for Texas (LIFT)', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'Combines TIL, Strong Foundations, and Texas Lesson Study to build distributed instructional leadership capacity across district and campus roles, with shared accountability for teacher coaching and development.' }
+        ],
+        capacity: 'Requires assistant principal and department chair coaching capacity. Coach caseload management and calibration structures for all evaluators are necessary.'
+      },
+      {
+        need: 'Fragmented, disconnected professional development not tied to a coherent yearlong plan',
+        strategy: 'Yearlong professional development and coaching plans aligned to the envisioned student experience with targeted approaches for each role produce more sustained instructional improvement than one-time trainings.',
+        initiatives: [
+          { name: 'Leadership and Instructional Foundations for Texas (LIFT)', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'Provides a multi-year, district-wide professional development framework combining curriculum-based learning, instructional leadership development, and lesson study tied to a coherent yearlong improvement plan.' }
+        ],
+        capacity: 'Requires district-level PD coordinator. Protected time in master schedule for professional learning and campus leader facilitation capacity are necessary.'
+      },
+      {
+        need: 'Teachers and leaders lacking role-aligned understanding of culture routines and behavior support practices',
+        strategy: 'Training in culture routines and behavior management practices with practice opportunities significantly improves classroom environment and student readiness to learn.',
+        initiatives: [
+          { name: 'LIFT: Strong Foundations Component', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'Provides role-aligned training in culture routines and classroom management systems, including practice delivery opportunities for teachers and instructional leaders aligned to campus behavior support expectations.' }
+        ],
+        capacity: 'Requires campus leader facilitation of culture training. Time for practice and calibration before school year launch is essential.'
+      },
+      {
+        need: 'Teachers and leaders lacking deep knowledge of how to effectively implement the adopted curriculum',
+        strategy: 'Curriculum-based professional learning that builds deep teacher understanding of adopted HQIM leads to stronger implementation fidelity and improved student outcomes.',
+        initiatives: [
+          { name: 'Leadership and Instructional Foundations for Texas (LIFT)', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'Provides curriculum-based professional learning that builds teacher and leader understanding of HQIM, supporting strong and consistent implementation across classrooms and campuses.' }
+        ],
+        capacity: 'Requires instructional coaches trained in the adopted curriculum. Campus leaders as PLC facilitators and district curriculum specialists are necessary.'
+      },
+      {
+        need: 'Teachers lacking skills in content-aligned classroom management, intervention, and differentiation',
+        strategy: 'Training in research-based instructional delivery, including classroom management, intervention strategies, and differentiation, is associated with significant gains in teacher effectiveness.',
+        initiatives: [
+          { name: 'Texas Mathematics Academies', org: 'TEA', url: 'https://tea.texas.gov/academics/learning-support-and-programs/texas-mathematics-academies', desc: 'Provides structured professional development in research-based, systematic approaches to mathematics instructional delivery, supporting teacher knowledge of content-aligned strategies and improving classroom practice in math.' }
+        ],
+        capacity: 'Requires teacher release time for academy participation. Follow-up coaching support and substitute coverage or schedule adjustments are necessary.'
+      },
+      {
+        need: 'Teachers not effectively using individual planning time or PLC time to internalize curriculum for students',
+        strategy: 'Job-embedded instructional planning support, including PLC facilitation, lesson internalization, and differentiation coaching, significantly improves the quality of daily instruction.',
+        initiatives: [
+          { name: 'LIFT SI PLC (School Improvement PLC Support)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Builds teacher collaboration and PLC execution at school improvement campuses to strengthen instructional planning and delivery, including support for curriculum internalization and differentiation.' }
+        ],
+        capacity: 'Requires PLC facilitator roles. Master schedule protection of collaborative planning time and instructional coach capacity for PLC support are necessary.'
+      },
+      {
+        need: 'Infrequent, low-quality observation and feedback cycles that do not improve instructional practice',
+        strategy: 'Frequent, high-quality observation and feedback cycles tied to specific instructional practices and action steps are among the most effective tools for improving teacher performance.',
+        initiatives: [
+          { name: 'Texas Instructional Leadership (TIL)', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/superintendents/texas-instructional-leadership-presentation-august-2024.pdf', desc: 'Provides a framework for implementing rigorous observation and feedback cycles aligned to HQIM delivery and strong instructional practices, including calibration of evaluators and use of action step trackers to monitor progress over time.' }
+        ],
+        capacity: 'Requires instructional coaches and campus leaders trained in observation protocols. Systems for tracking action steps and progress are essential.'
+      },
+      {
+        need: 'Teachers and leaders not effectively using curriculum-embedded and interim assessment data to adjust instruction',
+        strategy: 'Job-embedded support for reviewing student work and assessment data tied directly to instructional planning produces more targeted and effective instructional adjustments.',
+        initiatives: [
+          { name: 'Leadership and Instructional Foundations for Texas (LIFT)', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'Includes Texas Lesson Study components that support teachers and leaders in reviewing student work, reflecting on assessment data, and adjusting instruction, aligned to Tier 1 HQIM implementation.' }
+        ],
+        capacity: 'Requires instructional coaches trained in data analysis facilitation. PLC time for collaborative data review and data systems that surface assessment results quickly are necessary.'
+      },
+      {
+        need: 'Inconsistent or reactive student placement and intervention decisions not driven by data',
+        strategy: 'Data-driven student placement and intervention decisions tied to frequent progress monitoring and family engagement are significantly more effective than subjective or reactive placement practices.',
+        initiatives: [
+          { name: 'Navigating Excellence through Targeted Supports (NEXT)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Supports accelerated improvement in struggling schools through targeted instructional supports and data-driven student placement strategies, including structured intervention programs with frequent progress monitoring.' }
+        ],
+        capacity: 'Requires interventionists and student support coordinators. Data analyst capacity for placement analysis and family communication systems are necessary.'
+      },
+      {
+        need: 'Siloed special education and general education staff lacking shared accountability for students with disabilities',
+        strategy: 'Clear roles and responsibilities for co-teaching, UDL implementation, and shared accountability between special and general education staff significantly improve outcomes for students with disabilities.',
+        initiatives: [
+          { name: 'Multi-tiered System of Supports (MTSS): Special Education Alignment', org: 'TEA', url: 'https://tea.texas.gov/academics/special-student-populations/special-education/programs-and-services/multi-tiered-system-of-supports-mtss', desc: 'MTSS framework includes special education collaboration guidance, co-teaching models, and UDL best practices to support shared accountability between special and general education staff for student outcomes.' }
+        ],
+        capacity: 'Requires co-teaching training for general and special education teachers. Shared planning time in master schedule and campus leader facilitation of collaboration structures are necessary.'
+      },
+      {
+        need: 'Siloed bilingual and ESL staff without shared accountability for emergent bilingual students',
+        strategy: 'Content-based language instruction (CBLI) implemented through collaborative structures between bilingual and ESL and general education staff significantly improves academic language and content outcomes for emergent bilingual students.',
+        initiatives: [
+          { name: 'Multi-tiered System of Supports (MTSS): Emergent Bilingual Alignment', org: 'TEA', url: 'https://tea.texas.gov/academics/special-student-populations/special-education/programs-and-services/multi-tiered-system-of-supports-mtss', desc: 'MTSS framework includes emergent bilingual alignment guidance, CBLI implementation support, and collaboration structures for shared accountability between bilingual and ESL and general education staff.' }
+        ],
+        capacity: 'Requires bilingual and ESL teachers with CBLI training. Shared planning time in master schedule and campus leader support for collaboration structures are necessary.'
+      }
+    ]
+  },
+
+  // ==========================================================
+  // LEVER 6: Finance & Operations
+  // ==========================================================
+  {
+    id: 6,
+    name: 'Finance and operations',
+    subtitle: 'Finance, operations, time, and systems',
+    icon: 'dollar',
+    reflectionKeys: ['l6_time','l6_extended','l6_technology','l6_finance'],
+    needs: [
+      {
+        need: 'Insufficient instructional days to meet student academic needs',
+        strategy: 'Expand the number of instructional days by adding up to 30 additional days through an approved extended calendar program funded by the state.',
+        initiatives: [
+          { name: 'Additional Days School Year (ADSY)', org: 'TEA', url: 'https://tea.texas.gov/academics/learning-support-and-programs/additional-days-school-year', desc: 'Provides formula funding for eligible campuses to add up to 30 instructional days. HB 2 updates expanded ADSY supports. Campuses serving high concentrations of at-risk students are prioritized.' }
+        ],
+        capacity: 'May require additional teacher contracts, paraprofessional support, and coordination with campus master scheduling.'
+      },
+      {
+        need: 'Loss of instructional days due to unplanned closures or emergency events',
+        strategy: 'Develop and adopt a virtual or hybrid instructional model as a contingency to maintain instructional days during closures.',
+        initiatives: [
+          { name: 'Virtual and Hybrid Program Accelerator (VHPA)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Supports districts in building virtual and hybrid instructional capacity to maintain instructional continuity and expand flexible learning options for students.' }
+        ],
+        capacity: 'Requires teacher training in virtual delivery. Technology infrastructure investment and digital learning support roles are necessary.'
+      },
+      {
+        need: 'Limited access to high-quality extended learning opportunities for students most in need',
+        strategy: 'Reference the School Actions Playbooks to expand access to high-quality schools and redesign school calendars around student need, or apply for school action funding to implement school actions.',
+        initiatives: [
+          { name: 'Center for School Actions (CSA)', org: 'CSA', url: 'https://www.centerforschoolactions.org/resources', desc: 'Provides playbooks and resources for districts redesigning school calendars and models around student need, including extended time models.' },
+          { name: 'School Action Fund (SAF)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Awards grants supporting whole-school strategies to increase access to high-quality schools, meet community needs, and address chronic underperformance including extended time models.' }
+        ],
+        capacity: 'May support additional staffing at restructured campuses. Requires planning around extended day and year staffing models.'
+      },
+      {
+        need: 'Master schedules that do not prioritize core instructional time or minimize pull-outs and disruptions',
+        strategy: 'Use TEA\'s EDF guidance and planning supports to audit and redesign master schedules around the envisioned student experience.',
+        initiatives: [
+          { name: 'Effective District Framework (EDF) EA 6.1 Guidance', org: 'TEA', url: 'https://tea.texas.gov/texas-educators/aligned-frameworks/effective-district-framework', desc: 'Provides districts with a research-based framework for auditing and optimizing master schedules to center the envisioned student academic experience, including enrichment and intervention blocks.' }
+        ],
+        capacity: 'Requires scheduling coordinator expertise. May necessitate role redesign for instructional coaches and interventionists.'
+      },
+      {
+        need: 'Insufficient time for teacher planning, collaboration, and professional development embedded in the school day',
+        strategy: 'Implement structured professional learning communities (PLCs) and job-embedded coaching during the school day using LIFT program supports.',
+        initiatives: [
+          { name: 'Leadership and Instructional Foundations for Texas (LIFT)', org: 'TEA', url: 'https://tea.texas.gov/academics/instructional-materials/leadership-and-instructional-foundations-for-texas-lift', desc: 'A multi-year, grant-funded district-wide program combining Strong Foundations, Texas Instructional Leadership, and Texas Lesson Study to support comprehensive implementation of HQIM with embedded planning time and PLC structures.' }
+        ],
+        capacity: 'Requires instructional coaches and campus leaders trained in PLC facilitation. Master schedule must protect collaboration blocks.'
+      },
+      {
+        need: 'Insufficient time for teacher collaboration and PLC structures at school improvement campuses',
+        strategy: 'Access school improvement-specific PLC support to build structured teacher collaboration into the master schedule at targeted campuses.',
+        initiatives: [
+          { name: 'LIFT SI PLC (School Improvement PLC Support)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Builds teacher collaboration and PLC execution capacity specifically at school improvement campuses to strengthen instructional planning and delivery.' }
+        ],
+        capacity: 'Requires PLC facilitator roles. Master schedule redesign to protect collaborative time and campus leadership coaching are necessary.'
+      },
+      {
+        need: 'Administrative burden and non-instructional tasks consuming teacher time during the school day',
+        strategy: 'Leverage PEIMS and technology planning resources to reduce administrative burden and consolidate reporting systems, increasing time teachers spend on instruction.',
+        initiatives: [
+          { name: 'PEIMS Overview (TEA Data Submission)', org: 'TEA', url: 'https://tea.texas.gov/reports-and-data/data-submission/peims/peims-overview', desc: 'TEA\'s Public Education Information Management System standardizes and consolidates student, personnel, financial, and organizational data reporting to reduce fragmented local administrative practices and minimize teacher reporting burden.' }
+        ],
+        capacity: 'Requires a dedicated PEIMS coordinator. Technology systems support staff and training for campus data submitters are necessary.'
+      },
+      {
+        need: 'Inefficient technology systems that create redundant work and consume teacher time',
+        strategy: 'Develop and implement a districtwide technology plan to consolidate non-curricular software systems (LMS, SIS, HR) and reduce manual teacher tasks.',
+        initiatives: [
+          { name: 'Technology Planning', org: 'TEA', url: 'https://tea.texas.gov/texas-schools/technology', desc: 'TEA provides technology planning guidance and resources to help districts evaluate, consolidate, and manage their non-curricular technology systems to reduce administrative burden on teachers and campus staff.' }
+        ],
+        capacity: 'Requires a district technology coordinator. Investment in non-curricular software evaluation and systems consolidation is necessary.'
+      },
+      {
+        need: 'Students lacking access to tutoring and intervention time protected within the master schedule',
+        strategy: 'Redesign master schedules to carve protected intervention blocks that align with the district\'s multi-tiered academic system without reducing core instructional time.',
+        initiatives: [
+          { name: 'Navigating Excellence through Targeted Supports (NEXT)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Supports accelerated improvement including the redesign of schedules to embed structured tutoring and intervention programs into the school day aligned to the district\'s MTSS framework.' }
+        ],
+        capacity: 'Requires trained interventionists and tutors. Master schedule must carve protected intervention blocks without reducing core instructional time.'
+      },
+      {
+        need: 'Inadequate time for mathematics instruction and intervention within the school day or year',
+        strategy: 'Use Texas Mathematics Academies to build teacher capacity in research-based math instruction, ensuring instructional time is used effectively and intervention time is maximized.',
+        initiatives: [
+          { name: 'Texas Mathematics Academies', org: 'TEA', url: 'https://tea.texas.gov/academics/learning-support-and-programs/texas-mathematics-academies', desc: 'Provides structured professional development for educators using research-based, systematic approaches to mathematics instruction, supporting teacher knowledge and maximizing the quality of instructional time in math.' }
+        ],
+        capacity: 'Requires teacher release time for academy participation. Substitutes or coverage plans and follow-up coaching support are necessary.'
+      },
+      {
+        need: 'Inadequate school day or year structures to support early childhood readiness and Pre-K instructional time',
+        strategy: 'Expand early childhood instructional time and align programming to a research-based readiness model using ECHS or early college models to extend access across the K-12 pipeline.',
+        initiatives: [
+          { name: 'Early College High School (ECHS)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Increases college readiness and credit attainment by expanding access to rigorous coursework, providing a model for extended instructional time and academic opportunity across grade bands.' }
+        ],
+        capacity: 'Requires coordination between campus-level early childhood staff, higher education partners, and district scheduling teams.'
+      },
+      {
+        need: 'Disconnected or blended learning models that do not effectively use instructional time',
+        strategy: 'Implement a blended learning model aligned to HQIM to redesign instructional time, allowing for personalized learning and flexible master scheduling.',
+        initiatives: [
+          { name: 'Blended Learning Grant (BLG)', org: 'LASO Cycle 4', url: 'https://tea.texas.gov/texas-schools/health-safety-discipline/laso-cycle-4-grant-and-allotment-programs', desc: 'Redesigns instruction using blended learning models aligned to HQIM, increasing student engagement and enabling flexible, personalized use of instructional time.' }
+        ],
+        capacity: 'Requires teacher training in blended delivery. Technology infrastructure and instructional coach support for implementation are necessary.'
+      },
+      {
+        need: 'The complexity of the school finance system is obscuring opportunities to allocate funds strategically at the local level',
+        strategy: 'Utilize TEA\'s suite of resources designed to inform and guide school system leaders, including superintendents, CFOs, district cabinet members, and school board members, to support local decision making and maximize available state funds.',
+        initiatives: [
+          { name: 'Local School District Revenue Options Tools and Resources', org: 'TEA', url: 'https://tea.texas.gov/texas-schools/school-boards/local-school-district-revenue-options', desc: 'The Texas Legislature and the state of Texas provide a robust set of funding sources for school systems. Many of these sources are within the school system\'s control and aligned to components of a strong academic strategic plan.' }
+        ],
+        capacity: 'Requires training for district-level leaders, including superintendents, CFOs, district cabinet members, and school board members, to use the tools and resources for decision making.'
+      }
+    ]
+  }
+];
+
+// ============================================================
+// ICON HELPERS
+// ============================================================
+function getIcon(type, size=22) {
+  const s = `width="${size}" height="${size}"`;
+  const icons = {
+    clipboard: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></svg>`,
+    users: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`,
+    heart: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`,
+    graduation: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+    chart: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>`,
+    dollar: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+    info: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>`,
+    star: `<svg ${s} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  };
+  return icons[type] || icons.info;
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.progress-step').forEach(s => s.classList.remove('active','completed'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+  const screenEl = document.getElementById('screen-' + id);
+  if (screenEl) screenEl.classList.add('active');
+
+  const order = ['home','step1','step2','step3','step4'];
+  const idx = order.indexOf(id);
+  order.forEach((s, i) => {
+    const el = document.getElementById('prog-' + s);
+    if (!el) return;
+    if (i < idx) el.classList.add('completed');
+    if (i === idx) el.classList.add('active');
+  });
+
+  if (id === 'step2') buildStep2();
+  if (id === 'step3' && state.selectedLever !== null) buildStep3();
+  if (id === 'step4' && state.selectedNeed !== null) buildStep4();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeLeversMenu();
+}
+
+function goHome() { showScreen('home'); }
+
+function restartTool() {
+  state.ratings = {};
+  state.selectedLever = null;
+  state.selectedNeed = null;
+  document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('strength','inconsistent','struggle'));
+  goHome();
+}
+
+function toggleLeversMenu() {
+  document.getElementById('levers-nav-menu').classList.toggle('open');
+}
+function closeLeversMenu() {
+  document.getElementById('levers-nav-menu').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-levers-dropdown')) closeLeversMenu();
+});
+
+function jumpToLever(idx) {
+  state.selectedLever = idx;
+  showScreen('step3');
+  closeLeversMenu();
+}
+
+// ============================================================
+// BUILD STEP 1
+// ============================================================
+function buildStep1() {
+  const container = document.getElementById('reflection-sections-container');
+  container.innerHTML = '';
+  REFLECTION_SECTIONS.forEach(section => {
+    const div = document.createElement('div');
+    div.className = 'reflection-section';
+    div.innerHTML = `
+      <div class="reflection-section-header">
+        <div class="reflection-section-icon">${getIcon(section.icon, 18)}</div>
+        <div>
+          <div class="reflection-section-label">${section.label}</div>
+          <div class="reflection-section-sublabel">${section.sublabel}</div>
+        </div>
+      </div>
+      <div class="reflection-areas">
+        ${section.areas.map(area => `
+          <div class="reflection-area-row">
+            <div class="reflection-area-text">${area.text}</div>
+            <div class="rating-group">
+              <button class="rating-btn ${state.ratings[area.key] === 'strength' ? 'strength' : ''}"
+                onclick="setRating('${area.key}', 'strength', this)">Strength</button>
+              <button class="rating-btn ${state.ratings[area.key] === 'inconsistent' ? 'inconsistent' : ''}"
+                onclick="setRating('${area.key}', 'inconsistent', this)">Inconsistent</button>
+              <button class="rating-btn ${state.ratings[area.key] === 'struggle' ? 'struggle' : ''}"
+                onclick="setRating('${area.key}', 'struggle', this)">Struggle</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function setRating(key, value, btn) {
+  const group = btn.closest('.rating-group');
+  group.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('strength','inconsistent','struggle'));
+  if (state.ratings[key] === value) {
+    delete state.ratings[key];
+  } else {
+    state.ratings[key] = value;
+    btn.classList.add(value);
+  }
+}
+
+// ============================================================
+// BUILD STEP 2
+// ============================================================
+function buildStep2() {
+  const contextArea = document.getElementById('step2-context-area');
+  const struggles = Object.entries(state.ratings).filter(([k,v]) => v === 'struggle').map(([k]) => k);
+  const inconsistents = Object.entries(state.ratings).filter(([k,v]) => v === 'inconsistent').map(([k]) => k);
+
+  // Count struggles and inconsistents per lever
+  const leverScores = LEVERS.map(lever => ({
+    lever,
+    struggleCount: lever.reflectionKeys.filter(k => struggles.includes(k)).length,
+    inconCount: lever.reflectionKeys.filter(k => inconsistents.includes(k)).length,
+  }));
+
+  const maxStruggles = Math.max(...leverScores.map(s => s.struggleCount));
+  const hasAnyStruggle = maxStruggles > 0;
+  const hasAnyRating = struggles.length > 0 || inconsistents.length > 0;
+
+  // Labeling rules:
+  // "Priority" = lever(s) with the highest struggle count
+  // "Review"   = any other lever with 2 or more struggles
+  // No label   = 0 or 1 struggle (unless it shares the max)
+  // If no struggles at all, apply same logic using inconsistents
+  const REVIEW_THRESHOLD = 2;
+
+  leverScores.forEach(s => {
+    if (!hasAnyStruggle) {
+      const maxIncon = Math.max(...leverScores.map(x => x.inconCount));
+      if (maxIncon === 0) { s.label = null; }
+      else if (s.inconCount === maxIncon) { s.label = 'priority'; }
+      else if (s.inconCount >= REVIEW_THRESHOLD) { s.label = 'review'; }
+      else { s.label = null; }
+    } else if (s.struggleCount === maxStruggles) {
+      s.label = 'priority';
+    } else if (s.struggleCount >= REVIEW_THRESHOLD) {
+      s.label = 'review';
+    } else {
+      s.label = null;
+    }
+  });
+
+  // Sort: priority first, then review by struggle count desc, then rest by lever id
+  leverScores.sort((a, b) => {
+    const order = { priority: 0, review: 1 };
+    const oa = order[a.label] ?? 2;
+    const ob = order[b.label] ?? 2;
+    if (oa !== ob) return oa - ob;
+    if (b.struggleCount !== a.struggleCount) return b.struggleCount - a.struggleCount;
+    if (b.inconCount !== a.inconCount) return b.inconCount - a.inconCount;
+    return a.lever.id - b.lever.id;
+  });
+
+  // Context banner
+  if (hasAnyRating) {
+    const priorityLevers = leverScores.filter(s => s.label === 'priority');
+    const reviewCount = leverScores.filter(s => s.label === 'review').length;
+    let bannerMsg = '';
+    if (hasAnyStruggle) {
+      const names = priorityLevers.map(s =>
+        `<strong>Lever ${s.lever.id}: ${s.lever.name.charAt(0).toUpperCase() + s.lever.name.slice(1)}</strong>`
+      ).join(' and ');
+      bannerMsg = `${names} ${priorityLevers.length > 1 ? 'have' : 'has'} the most areas rated as a struggle and ${priorityLevers.length > 1 ? 'are' : 'is'} marked as your top priority.`
+        + (reviewCount > 0 ? ` ${reviewCount} other lever${reviewCount > 1 ? 's have' : ' has'} 2 or more struggle areas and ${reviewCount > 1 ? 'are' : 'is'} marked for review.` : '');
+    } else {
+      bannerMsg = `You have not rated any areas as a struggle. The lever with the most areas rated as inconsistent is marked as a suggested starting point.`;
+    }
+    contextArea.innerHTML = `
+      <div class="step2-context-banner">
+        ${getIcon('info',18)}
+        <div>${bannerMsg}</div>
+      </div>
+    `;
+  } else {
+    contextArea.innerHTML = '';
+  }
+
+  const grid = document.getElementById('lever-grid-container');
+  grid.innerHTML = '';
+
+  leverScores.forEach(({ lever, struggleCount, inconCount, label }) => {
+    const card = document.createElement('div');
+    card.className = 'lever-card' + (label === 'priority' ? ' priority' : (label === 'review' ? ' priority-2' : ''));
+    card.onclick = () => selectLever(lever.id - 1);
+
+    let badge = '';
+    if (label === 'priority') {
+      const countNote = struggleCount > 0
+        ? ` &middot; ${struggleCount} struggle${struggleCount > 1 ? 's' : ''}`
+        : (inconCount > 0 ? ` &middot; ${inconCount} inconsistent` : '');
+      badge = `<div class="lever-priority-badge">Priority${countNote}</div>`;
+    } else if (label === 'review') {
+      const countNote = struggleCount > 0
+        ? ` &middot; ${struggleCount} struggle${struggleCount > 1 ? 's' : ''}`
+        : '';
+      badge = `<div class="lever-priority-badge secondary">Review${countNote}</div>`;
+    }
+
+    card.innerHTML = `
+      ${badge}
+      <div class="lever-icon">${getIcon(lever.icon, 22)}</div>
+      <div style="flex:1">
+        <div class="lever-number">Lever ${lever.id}</div>
+        <div class="lever-name">${lever.name.charAt(0).toUpperCase() + lever.name.slice(1)}</div>
+        <div class="lever-desc">${lever.subtitle}</div>
+      </div>
+      <div class="lever-arrow">&#8250;</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function selectLever(idx) {
+  state.selectedLever = idx;
+  state.selectedNeed = null;
+  showScreen('step3');
+}
+
+// ============================================================
+// BUILD STEP 3
+// ============================================================
+function buildStep3() {
+  if (state.selectedLever === null) return;
+  const lever = LEVERS[state.selectedLever];
+  document.getElementById('step3-heading').textContent = `Step 3: Lever ${lever.id} – ${lever.name.charAt(0).toUpperCase() + lever.name.slice(1)}`;
+
+  const header = document.getElementById('step3-lever-header');
+  header.innerHTML = `
+    <div class="lever-icon">${getIcon(lever.icon, 22)}</div>
+    <div>
+      <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:var(--backpack-blue);">Lever ${lever.id}: ${lever.name.charAt(0).toUpperCase() + lever.name.slice(1)}</div>
+      <div style="font-size:12.5px;color:var(--cool-grey);margin-top:2px;">${lever.subtitle}</div>
+    </div>
+  `;
+
+  const list = document.getElementById('needs-list-container');
+  list.innerHTML = '';
+  lever.needs.forEach((n, i) => {
+    const card = document.createElement('div');
+    card.className = 'need-card';
+    card.onclick = () => selectNeed(i);
+    card.innerHTML = `
+      <div class="need-card-text">${n.need}</div>
+      <div class="need-card-arrow">&#8250;</div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function selectNeed(idx) {
+  state.selectedNeed = idx;
+  showScreen('step4');
+}
+
+// ============================================================
+// BUILD STEP 4
+// ============================================================
+function buildStep4() {
+  if (state.selectedLever === null || state.selectedNeed === null) return;
+  const lever = LEVERS[state.selectedLever];
+  const need = lever.needs[state.selectedNeed];
+  const content = document.getElementById('step4-content');
+
+  const initRows = need.initiatives.map(init => `
+    <div class="initiative-row">
+      <div>
+        <a class="initiative-link" href="${init.url}" target="_blank" rel="noopener noreferrer">
+          ${getIcon('info',12)}
+          ${init.name}${init.org ? ' <span style="font-size:11px;color:var(--cool-grey);font-weight:400;">– ${init.org}</span>' : ''}
+        </a>
+      </div>
+      <div class="initiative-desc">${init.desc}</div>
+      <div class="initiative-capacity">${need.capacity}</div>
+    </div>
+  `).join('');
+
+  content.innerHTML = `
+    <div class="result-selected-need">
+      <div class="label">Your selected need</div>
+      <div class="need-text">${need.need}</div>
+    </div>
+    <div class="result-strategy">
+      <div class="label">Recommended strategy</div>
+      <div class="strategy-text">${need.strategy}</div>
+    </div>
+    <div class="initiatives-table-wrap">
+      <div class="initiatives-table-header">
+        <div>Aligned initiatives</div>
+        <div>Initiative description</div>
+        <div>Required capacity</div>
+      </div>
+      ${initRows}
+    </div>
+    <div class="result-note">
+      ${getIcon('star',18)}
+      <div>These initiatives are most effective when implemented with dedicated ownership, clear accountability structures, and consistent routines. Align any new initiative to your existing strategic plan before beginning.</div>
+    </div>
+  `;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+buildStep1();
+showScreen('home');
+</script>
+</body>
+</html>
